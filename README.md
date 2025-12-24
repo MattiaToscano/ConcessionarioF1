@@ -118,7 +118,7 @@ npm install
 # Installo dipendenze aggiuntive per il mio progetto
 npm install axios react-router-dom @heroicons/react
 npm install -D tailwindcss postcss autoprefixer
-npx tailwindcss init -p
+npm.cmd tailwindcss init -p
 
 # Avvio il server di sviluppo
 npm run dev
