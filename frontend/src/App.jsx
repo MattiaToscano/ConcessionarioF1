@@ -1,5 +1,6 @@
 import Header from './components/common/Header'
 import CarCarousel from './components/home/CarCarousel'
+import Footer from './components/common/footer'
 
 function App() {
   return (
@@ -13,6 +14,9 @@ function App() {
           Le leggendarie auto della Formula 1 ti aspettano!
         </p>
       </main>
+
+
+      <Footer />
     </div>
   )
 }
