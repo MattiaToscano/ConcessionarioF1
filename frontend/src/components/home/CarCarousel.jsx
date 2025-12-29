@@ -39,45 +39,124 @@ const CarCarousel = () => {
     }
 
     return (
-        <div className="bg-gray-900 py-16">
-            <div className="container mx-auto px-4">
-                <h2 className="text-4xl font-bold text-center text-white mb-12">
+        <div style={{
+            backgroundColor: '#111827',
+            paddingTop: '64px',
+            paddingBottom: '64px'
+        }}>
+            <div style={{
+                maxWidth: '1200px',
+                margin: '0 auto',
+                paddingLeft: '16px',
+                paddingRight: '16px'
+            }}>
+                <h2 style={{
+                    fontSize: '2.25rem',
+                    fontWeight: 'bold',
+                    textAlign: 'center',
+                    color: 'white',
+                    marginBottom: '48px'
+                }}>
                     Ecco i nostri prodotti di punta
                 </h2>
 
-                <div className="text-center">
+                <div style={{ textAlign: 'center' }}>
                     {/* Immagine dell'auto con animazione*/}
-                    <div className="mb-8 transition-all duration-500 ease-in-out">
+                    <div style={{
+                        marginBottom: '32px',
+                        transition: 'all 0.5s ease-in-out'
+                    }}>
                         <img
                             src={cars[currentIndex].image}
                             alt={cars[currentIndex].name}
-                            className="mx-auto rounded-lg shadow-2xl max-w-2xl w-full transform hover:scale-105 transition-transform duration-300"
+                            style={{
+                                margin: '0 auto',
+                                borderRadius: '8px',
+                                boxShadow: '0 25px 50px rgba(0, 0, 0, 0.6)',
+                                maxWidth: '672px',
+                                width: '100%',
+                                transform: 'scale(1)',
+                                transition: 'transform 0.3s'
+                            }}
+                            onMouseOver={(e) => e.target.style.transform = 'scale(1.05)'}
+                            onMouseOut={(e) => e.target.style.transform = 'scale(1)'}
                         />
                     </div>
 
                     {/* Info auto in card style*/}
-                    <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-6 mx-auto max-w-lg mb-8 shadow-xl">
-                        <h3 className="text-f1-red text-3xl font-bold mb-2">
+                    <div style={{
+                        backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                        backdropFilter: 'blur(8px)',
+                        border: '1px solid rgba(255, 255, 255, 0.2)',
+                        borderRadius: '12px',
+                        padding: '24px',
+                        margin: '0 auto',
+                        maxWidth: '512px',
+                        marginBottom: '32px',
+                        boxShadow: '0 25px 50px rgba(0, 0, 0, 0.6)'
+                    }}>
+                        <h3 style={{
+                            color: '#e10600',
+                            fontSize: '1.875rem',
+                            fontWeight: 'bold',
+                            marginBottom: '8px'
+                        }}>
                             {cars[currentIndex].name}
                         </h3>
-                        <p className="text-white text-xl mb-2">
+                        <p style={{
+                            color: 'white',
+                            fontSize: '1.25rem',
+                            marginBottom: '8px'
+                        }}>
                             {cars[currentIndex].team} • {cars[currentIndex].year}
                         </p>
-                        <p className="text-f1-red text-2xl font-bold mb-8">
+                        <p style={{
+                            color: '#e10600',
+                            fontSize: '1.5rem',
+                            fontWeight: 'bold',
+                            marginBottom: '32px'
+                        }}>
                             {cars[currentIndex].price}
                         </p>
                     </div>
 
                     {/* Indicatori */}
-                    <div className="flex justify-center space-x-8 mb-8">
+                    <div style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        gap: '32px',
+                        marginBottom: '32px'
+                    }}>
                         {cars.map((_, index) => (
                             <button
                                 key={index}
                                 onClick={() => setCurrentIndex(index)}
-                                className={`w-10 h-10 rounded-full transition-all duration-200 border-4 ${index === currentIndex
-                                        ? 'bg-f1-red border-f1-red scale-110 shadow-2xl'
-                                        : 'bg-gray-300 border-gray-500 hover:bg-f1-red hover:border-f1-red hover:scale-105'
-                                    }`}
+                                style={{
+                                    width: '40px',
+                                    height: '40px',
+                                    borderRadius: '50%',
+                                    transition: 'all 0.2s',
+                                    border: '4px solid',
+                                    backgroundColor: index === currentIndex ? '#e10600' : '#d1d5db',
+                                    borderColor: index === currentIndex ? '#e10600' : '#6b7280',
+                                    transform: index === currentIndex ? 'scale(1.1)' : 'scale(1)',
+                                    boxShadow: index === currentIndex ? '0 25px 50px rgba(225, 6, 0, 0.6)' : 'none',
+                                    cursor: 'pointer'
+                                }}
+                                onMouseOver={(e) => {
+                                    if (index !== currentIndex) {
+                                        e.target.style.backgroundColor = '#e10600';
+                                        e.target.style.borderColor = '#e10600';
+                                        e.target.style.transform = 'scale(1.05)';
+                                    }
+                                }}
+                                onMouseOut={(e) => {
+                                    if (index !== currentIndex) {
+                                        e.target.style.backgroundColor = '#d1d5db';
+                                        e.target.style.borderColor = '#6b7280';
+                                        e.target.style.transform = 'scale(1)';
+                                    }
+                                }}
                             />
                         ))}
                     </div>
@@ -85,19 +164,75 @@ const CarCarousel = () => {
 
 
                     {/* Pulsanti */}
-                    <div className="flex justify-center space-x-6">
+                    <div style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        gap: '24px'
+                    }}>
                         <button
                             onClick={prevCar}
-                            className="bg-f1-red text-white px-8 py-4 rounded-xl font-bold  hover:bg-red-700 hover:shadow-lg transform hover:scale-105   transition-all duration-200 flex items-center space-x-2">
+                            style={{
+                                backgroundColor: '#e10600',
+                                color: 'white',
+                                paddingLeft: '32px',
+                                paddingRight: '32px',
+                                paddingTop: '16px',
+                                paddingBottom: '16px',
+                                borderRadius: '12px',
+                                fontWeight: 'bold',
+                                border: 'none',
+                                cursor: 'pointer',
+                                transition: 'all 0.2s',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '8px',
+                                transform: 'scale(1)'
+                            }}
+                            onMouseOver={(e) => {
+                                e.target.style.backgroundColor = '#b91c1c';
+                                e.target.style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.3)';
+                                e.target.style.transform = 'scale(1.05)';
+                            }}
+                            onMouseOut={(e) => {
+                                e.target.style.backgroundColor = '#e10600';
+                                e.target.style.boxShadow = 'none';
+                                e.target.style.transform = 'scale(1)';
+                            }}
+                        >
 
                             <span>←</span>
                             <span>Precedente</span>
                         </button>
                         <button
                             onClick={nextCar}
-                            className="bg-f1-red text-white px-8 py-4 rounded-xl font-bold 
-               hover:bg-red-700 hover:shadow-lg transform hover:scale-105 
-               transition-all duration-200 flex items-center space-x-2">
+                            style={{
+                                backgroundColor: '#e10600',
+                                color: 'white',
+                                paddingLeft: '32px',
+                                paddingRight: '32px',
+                                paddingTop: '16px',
+                                paddingBottom: '16px',
+                                borderRadius: '12px',
+                                fontWeight: 'bold',
+                                border: 'none',
+                                cursor: 'pointer',
+                                transition: 'all 0.2s',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '8px',
+                                transform: 'scale(1)'
+                            }}
+                            onMouseOver={(e) => {
+                                e.target.style.backgroundColor = '#b91c1c';
+                                e.target.style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.3)';
+                                e.target.style.transform = 'scale(1.05)';
+                            }}
+                            onMouseOut={(e) => {
+                                e.target.style.backgroundColor = '#e10600';
+                                e.target.style.boxShadow = 'none';
+                                e.target.style.transform = 'scale(1)';
+                            }}
+                        >
 
 
                             <span>Successiva</span>

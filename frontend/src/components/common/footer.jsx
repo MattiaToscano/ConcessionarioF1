@@ -1,35 +1,78 @@
 const Footer = () => {
     return (
-        <footer className="bg-f1-dark text-white py-12">
-            <div className="container mx-auto px-4">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <footer style={{
+            backgroundColor: '#15151e',
+            color: 'white',
+            paddingTop: '48px',
+            paddingBottom: '48px'
+        }}>
+            <div style={{
+                maxWidth: '1200px',
+                margin: '0 auto',
+                paddingLeft: '16px',
+                paddingRight: '16px'
+            }}>
+                <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+                    gap: '32px',
+                    '@media (min-width: 768px)': {
+                        gridTemplateColumns: 'repeat(4, 1fr)'
+                    }
+                }}>
 
                     {/* Logo e descrizione */}
                     <div>
-                        <h3 className="text-f1-red text-2xl font-bold mb-4">
+                        <h3 style={{
+                            color: '#e10600',
+                            fontSize: '1.5rem',
+                            fontWeight: 'bold',
+                            marginBottom: '16px'
+                        }}>
                             Concessionario F1
                         </h3>
-                        <p className="text-gray-300 mb-4">
+                        <p style={{
+                            color: '#d1d5db',
+                            marginBottom: '16px'
+                        }}>
                             Le migliori auto di Formula 1 per i veri appassionati.
                         </p>
                     </div>
 
                     {/* Links */}
                     <div>
-                        <h4 className="text-white font-bold mb-4">Link Utili</h4>
-                        <p className="text-gray-300">Altri Links in arrivo...</p>
+                        <h4 style={{
+                            color: 'white',
+                            fontWeight: 'bold',
+                            marginBottom: '16px'
+                        }}>Link Utili</h4>
+                        <p style={{
+                            color: '#d1d5db'
+                        }}>Altri Links in arrivo...</p>
                     </div>
 
                     {/* Contatti */}
                     <div>
-                        <h4 className="text-white font-bold mb-4">Contatti</h4>
-                        <p className="text-gray-300">Contatti in arrivo...</p>
+                        <h4 style={{
+                            color: 'white',
+                            fontWeight: 'bold',
+                            marginBottom: '16px'
+                        }}>Contatti</h4>
+                        <p style={{
+                            color: '#d1d5db'
+                        }}>Contatti in arrivo...</p>
                     </div>
 
                     {/* Social */}
                     <div>
-                        <h4 className="text-white font-bold mb-4">Seguici</h4>
-                        <p className="text-gray-300">Social in arrivo...</p>
+                        <h4 style={{
+                            color: 'white',
+                            fontWeight: 'bold',
+                            marginBottom: '16px'
+                        }}>Seguici</h4>
+                        <p style={{
+                            color: '#d1d5db'
+                        }}>Social in arrivo...</p>
                     </div>
 
                 </div>

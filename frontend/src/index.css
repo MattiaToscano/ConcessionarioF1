@@ -1,7 +1,32 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Reset di base */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+/* Rimuove qualsiasi pseudo-elemento dal login */
+.login-button::after,
+.login-button::before {
+  display: none !important;
+  content: none !important;
 }
