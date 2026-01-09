@@ -55,23 +55,32 @@ const Header = () => {
                         }}>MENU</span>
                     </button>
 
-                    {/* Logo centrale */}
+                    {/* Logo centrale con messaggio benvenuto */}
                     <div style={{
                         position: 'absolute',
                         left: '50%',
                         transform: 'translateX(-50%)',
-                        pointerEvents: 'none'
+                        pointerEvents: 'none',
+                        textAlign: 'center'
                     }}>
                         <h1 style={{
                             color: '#e10600',
-                            fontSize: '1.875rem',
+                            fontSize: '1.5rem',
                             fontWeight: 'bold',
-                            letterSpacing: '0.1em',
-                            paddingTop: '12px',
-                            paddingBottom: '12px'
+                            letterSpacing: '0.05em',
+                            paddingTop: '4px',
+                            paddingBottom: '4px',
+                            whiteSpace: 'nowrap'
                         }}>
-                            🏎️ CONCESSIONARIO F1
+                            🏎️ Benvenuto nel Concessionario dei tuoi sogni
                         </h1>
+                        <p style={{ 
+                            color: '#9ca3af', 
+                            fontSize: '0.875rem',
+                            marginTop: '4px'
+                        }}>
+                           
+                        </p>
                     </div>
 
                     {/* Login a destra */}
