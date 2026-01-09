@@ -6,7 +6,7 @@ function App() {
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#f3f4f6' }}>
       <Header />
-      <div style={{ marginTop: '40px' }}>
+      <div>
         <CarCarousel />
       </div>
 
