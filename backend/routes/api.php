@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CarController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,9 +22,19 @@ Route::prefix('v1')->group(function () {
         ]);
     });
 
-    // TODO: Rotte per auto F1 (pubbliche)
-    // Route::get('/cars', [CarController::class, 'index']);
-    // Route::get('/cars/{car}', [CarController::class, 'show']);
+    // Rotte per auto F1 (pubbliche)
+    Route::get('/cars', [CarController::class, 'index']);
+    Route::get('/cars/{id}', [CarController::class, 'show']);
+    
+    // Rotte admin per gestione auto (per ora pubbliche)
+    Route::post('/cars', [CarController::class, 'store']);
+    Route::put('/cars/{id}', [CarController::class, 'update']);
+    Route::delete('/cars/{id}', [CarController::class, 'destroy']);
+    
+    // Rotte admin per gestione auto (per ora pubbliche)
+    Route::post('/cars', [CarController::class, 'store']);
+    Route::put('/cars/{id}', [CarController::class, 'update']);
+    Route::delete('/cars/{id}', [CarController::class, 'destroy']);
     
     // TODO: Rotte autenticazione
     // Route::post('/auth/register', [AuthController::class, 'register']);
