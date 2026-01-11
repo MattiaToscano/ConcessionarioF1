@@ -1,18 +1,23 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Header from './components/common/Header'
 import CarCarousel from './components/home/CarCarousel'
+import CarDetail from './components/cars/CarDetail'
 import Footer from './components/common/footer'
 
 function App() {
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#f3f4f6' }}>
-      <Header />
-      
-      <div>
-        <CarCarousel />
-      </div>
+    <BrowserRouter>
+      <div style={{ minHeight: '100vh', backgroundColor: '#f3f4f6' }}>
+        <Header />
+        
+        <Routes>
+          <Route path="/" element={<CarCarousel />} />
+          <Route path="/cars/:id" element={<CarDetail />} />
+        </Routes>
 
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </BrowserRouter>
   )
 }
 

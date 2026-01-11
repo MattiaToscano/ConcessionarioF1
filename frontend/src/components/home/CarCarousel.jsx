@@ -1,34 +1,31 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { carService } from '../../services/api'
 
 const CarCarousel = () => {
+    const navigate = useNavigate()
     const [currentIndex, setCurrentIndex] = useState(0)
+    const [cars, setCars] = useState([])
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState(null)
 
-    const cars = [
-        {
-            id: 1,
-            name: "Ferrari SF-25",
-            year: "2023",
-            team: "Scuderia Ferrari",
-            price: "€2.500.000",
-            image: "https://via.placeholder.com/600x300/dc2626/ffffff?text=Ferrari+SF-23",
-        },
-        {
-            id: 2,
-            name: "Red Bull RB19",
-            year: "2023",
-            team: "Red Bull Racing",
-            price: "€3.000.000",
-            image: "https://via.placeholder.com/600x300/1e40af/ffffff?text=Red+Bull+RB19",
-        },
-        {
-            id: 3,
-            name: "Mercedes W14",
-            year: "2023",
-            team: "Mercedes-AMG F1",
-            price: "€2.800.000",
-            image: "https://via.placeholder.com/600x300/059669/ffffff?text=Mercedes+W14",
+    useEffect(() => {
+        loadCars()
+    }, [])
+
+    const loadCars = async () => {
+        try {
+            setLoading(true)
+            const data = await carService.getAllCars()
+            setCars(data)
+            setError(null)
+        } catch (err) {
+            setError('Errore nel caricamento delle auto')
+            console.error(err)
+        } finally {
+            setLoading(false)
         }
-    ]
+    }
 
     const nextCar = () => {
         setCurrentIndex((prev) => (prev + 1) % cars.length)
@@ -36,6 +33,51 @@ const CarCarousel = () => {
 
     const prevCar = () => {
         setCurrentIndex((prev) => (prev - 1 + cars.length) % cars.length)
+    }
+
+    if (loading) {
+        return (
+            <div style={{
+                backgroundColor: '#111827',
+                paddingTop: '64px',
+                paddingBottom: '64px',
+                textAlign: 'center',
+                color: 'white',
+                fontSize: '1.5rem'
+            }}>
+                Caricamento auto...
+            </div>
+        )
+    }
+
+    if (error) {
+        return (
+            <div style={{
+                backgroundColor: '#111827',
+                paddingTop: '64px',
+                paddingBottom: '64px',
+                textAlign: 'center',
+                color: '#ef4444',
+                fontSize: '1.5rem'
+            }}>
+                {error}
+            </div>
+        )
+    }
+
+    if (cars.length === 0) {
+        return (
+            <div style={{
+                backgroundColor: '#111827',
+                paddingTop: '64px',
+                paddingBottom: '64px',
+                textAlign: 'center',
+                color: 'white',
+                fontSize: '1.5rem'
+            }}>
+                Nessuna auto disponibile
+            </div>
+        )
     }
 
     return (
@@ -114,10 +156,36 @@ const CarCarousel = () => {
                             color: '#e10600',
                             fontSize: '1.5rem',
                             fontWeight: 'bold',
-                            marginBottom: '32px'
+                            marginBottom: '16px'
                         }}>
                             {cars[currentIndex].price}
                         </p>
+                        
+                        <button
+                            onClick={() => navigate(`/cars/${cars[currentIndex].id}`)}
+                            style={{
+                                backgroundColor: '#e10600',
+                                color: 'white',
+                                padding: '12px 32px',
+                                borderRadius: '8px',
+                                border: 'none',
+                                cursor: 'pointer',
+                                fontSize: '1rem',
+                                fontWeight: 'bold',
+                                transition: 'all 0.2s',
+                                width: '100%'
+                            }}
+                            onMouseOver={(e) => {
+                                e.target.style.backgroundColor = '#b91c1c'
+                                e.target.style.transform = 'scale(1.02)'
+                            }}
+                            onMouseOut={(e) => {
+                                e.target.style.backgroundColor = '#e10600'
+                                e.target.style.transform = 'scale(1)'
+                            }}
+                        >
+                            Vedi Dettagli
+                        </button>
                     </div>
 
                     {/* Indicatori */}
