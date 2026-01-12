@@ -58,12 +58,39 @@ const CarList = () => {
         )
     }
 
-
-
-
-
-
-
+    return (
+        <div style={{
+            minHeight: '100vh',
+            backgroundColor: '#111827',
+            paddingTop: '80px',
+            paddingBottom: '64px'
+        }}>
+            <div style={{
+                maxWidth: '1400px',
+                margin: '0 auto',
+                paddingLeft: '16px',
+                paddingRight: '16px'
+            }}>
+                {/* Header */}
+                <div style={{
+                    textAlign: 'center',
+                    marginBottom: '48px'
+                }}>
+                    <h1 style={{
+                        color: 'white',
+                        fontSize: '3rem',
+                        fontWeight: 'bold',
+                        marginBottom: '16px'
+                    }}>
+                        Tutte le Auto F1
+                    </h1>
+                    <p style={{
+                        color: '#9ca3af',
+                        fontSize: '1.25rem'
+                    }}>
+                        {cars.length} auto disponibili
+                    </p>
+                </div>
 
 
 
