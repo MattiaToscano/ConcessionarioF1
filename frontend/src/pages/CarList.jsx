@@ -4,28 +4,80 @@ import { carService } from '../services/api'
 
 const CarList = () => {
     const navigate = useNavigate()
-    const [cars, setCars] = useState([])
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState(null)
+    
+    // Stati base del componente
+    const [cars, setCars] = useState([]) // Array con tutte le auto dal database
+    const [loading, setLoading] = useState(true) // true quando sto caricando i dati
+    const [error, setError] = useState(null) // Contiene eventuali errori
+    
+    // Stati per i filtri di ricerca
+    const [searchTerm, setSearchTerm] = useState('') // Testo cercato dall'utente
+    const [searchTeam, setSearchTeam] = useState('') // Team selezionato (es: "Ferrari")
+    const [selectedYear, setSelectedYear] = useState('') // Anno selezionato (es: "2023")
+    const [selectedPrice, setSelectedPrice] = useState('') // Fascia prezzo: 'low', 'medium', 'high'
 
+    // Filtro l'array cars in base ai criteri selezionati dall'utente
+    const filteredCars = cars.filter(car => {
+        // Estraggo il valore numerico del prezzo (rimuovo €, punti e virgole)
+        // Es: "€15.000.000" diventa 15000000
+        const priceValue = parseInt(car.price.replace(/\D/g, ''))
+        
+        // Controllo se il nome dell'auto contiene il testo cercato (case-insensitive)
+        // Es: cerca "ferrari" trova "Ferrari SF-23"
+        const matchesSearch = car.name.toLowerCase().includes(searchTerm.toLowerCase())
+        
+        // Controllo se il team corrisponde (se searchTeam è vuoto, accetto tutte)
+        const matchesTeam = !searchTeam || car.team === searchTeam
+        
+        // Controllo se l'anno corrisponde (se selectedYear è vuoto, accetto tutte)
+        const matchesYear = !selectedYear || car.year === selectedYear
+        
+        // Controllo fascia di prezzo
+        let matchesPrice = true // Default: accetto tutte le auto
+        if (selectedPrice === 'low') {
+            // Fascia bassa: sotto i 13 milioni
+            matchesPrice = priceValue < 13000000
+        } else if (selectedPrice === 'medium') {
+            // Fascia media: tra 13 e 16 milioni
+            matchesPrice = priceValue >= 13000000 && priceValue < 16000000
+        } else if (selectedPrice === 'high') {
+            // Fascia alta: sopra i 16 milioni
+            matchesPrice = priceValue >= 16000000
+        }
+        
+        // L'auto viene mostrata solo se passa TUTTI i filtri
+        return matchesSearch && matchesTeam && matchesYear && matchesPrice
+    })
+
+    // Creo array di team unici per il dropdown (senza duplicati e in ordine alfabetico)
+    // Es: ["Alpine F1 Team", "Ferrari", "Mercedes", ...]
+    const teams = [...new Set(cars.map(car => car.team))].sort()
+    
+    // Creo array di anni unici per il dropdown (dal più recente al più vecchio)
+    // Es: ["2023", "2022", "2021", ...]
+    const years = [...new Set(cars.map(car => car.year))].sort().reverse()
+
+    // useEffect si esegue quando il componente viene montato (caricato)
     useEffect(() => {
-        loadCars()
+        loadCars() // Carico le auto dal backend
     }, [])
 
+    // Funzione asincrona per caricare le auto dall'API
     const loadCars = async () => {
         try {
-            setLoading(true)
-            const data = await carService.getAllCars()
-            setCars(data)
-            setError(null)
+            setLoading(true) // Mostro il messaggio "Caricamento..."
+            const data = await carService.getAllCars() // Chiamo l'API
+            setCars(data) // Salvo le auto ricevute nello state
+            setError(null) // Pulisco eventuali errori precedenti
         } catch (err) {
-            setError('Errore nel caricamento delle auto')
-            console.error(err)
+            setError('Errore nel caricamento delle auto') // Mostro errore all'utente
+            console.error(err) // Log dell'errore nella console per debug
         } finally {
-            setLoading(false)
+            setLoading(false) // Nascondo il messaggio "Caricamento..."
         }
     }
 
+    // Se sto ancora caricando, mostro solo il messaggio di attesa
     if (loading) {
         return (
             <div style={{
@@ -42,6 +94,7 @@ const CarList = () => {
         )
     }
 
+    // Se c'è un errore, mostro il messaggio di errore
     if (error) {
         return (
             <div style={{
