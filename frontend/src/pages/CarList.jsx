@@ -144,6 +144,149 @@ const CarList = () => {
                         {cars.length} auto disponibili
                     </p>
                 </div>
+
+                {/* Barra di ricerca e filtri */}
+                <div style={{
+                    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                    borderRadius: '16px',
+                    padding: '24px',
+                    marginBottom: '32px',
+                    border: '1px solid rgba(255, 255, 255, 0.1)'
+                }}>
+                    {/* Barra di ricerca */}
+                    <input
+                        type="text"
+                        placeholder="🔍 Cerca per nome auto..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        style={{
+                            width: '100%',
+                            padding: '12px 16px',
+                            borderRadius: '8px',
+                            border: '1px solid rgba(255, 255, 255, 0.2)',
+                            backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                            color: 'white',
+                            fontSize: '1rem',
+                            marginBottom: '16px',
+                            outline: 'none'
+                        }}
+                    />
+
+                    {/* Filtri dropdown in griglia */}
+                    <div style={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                        gap: '16px'
+                    }}>
+                        {/* Filtro Team */}
+                        <select
+                            value={searchTeam}
+                            onChange={(e) => setSearchTeam(e.target.value)}
+                            style={{
+                                padding: '12px',
+                                borderRadius: '8px',
+                                border: '1px solid rgba(255, 255, 255, 0.2)',
+                                backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                                color: 'white',
+                                fontSize: '1rem',
+                                cursor: 'pointer',
+                                outline: 'none'
+                            }}
+                        >
+                            <option value="" style={{ backgroundColor: '#1f2937' }}>Tutti i Team</option>
+                            {teams.map(team => (
+                                <option key={team} value={team} style={{ backgroundColor: '#1f2937' }}>
+                                    {team}
+                                </option>
+                            ))}
+                        </select>
+
+                        {/* Filtro Anno */}
+                        <select
+                            value={selectedYear}
+                            onChange={(e) => setSelectedYear(e.target.value)}
+                            style={{
+                                padding: '12px',
+                                borderRadius: '8px',
+                                border: '1px solid rgba(255, 255, 255, 0.2)',
+                                backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                                color: 'white',
+                                fontSize: '1rem',
+                                cursor: 'pointer',
+                                outline: 'none'
+                            }}
+                        >
+                            <option value="" style={{ backgroundColor: '#1f2937' }}>Tutti gli Anni</option>
+                            {years.map(year => (
+                                <option key={year} value={year} style={{ backgroundColor: '#1f2937' }}>
+                                    {year}
+                                </option>
+                            ))}
+                        </select>
+
+                        {/* Filtro Prezzo */}
+                        <select
+                            value={selectedPrice}
+                            onChange={(e) => setSelectedPrice(e.target.value)}
+                            style={{
+                                padding: '12px',
+                                borderRadius: '8px',
+                                border: '1px solid rgba(255, 255, 255, 0.2)',
+                                backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                                color: 'white',
+                                fontSize: '1rem',
+                                cursor: 'pointer',
+                                outline: 'none'
+                            }}
+                        >
+                            <option value="" style={{ backgroundColor: '#1f2937' }}>Tutte le Fasce</option>
+                            <option value="low" style={{ backgroundColor: '#1f2937' }}>Economico (&lt; €13M)</option>
+                            <option value="medium" style={{ backgroundColor: '#1f2937' }}>Medio (€13-16M)</option>
+                            <option value="high" style={{ backgroundColor: '#1f2937' }}>Premium (&gt; €16M)</option>
+                        </select>
+
+                        {/* Pulsante Reset */}
+                        <button
+                            onClick={() => {
+                                setSearchTerm('')
+                                setSearchTeam('')
+                                setSelectedYear('')
+                                setSelectedPrice('')
+                            }}
+                            style={{
+                                padding: '12px',
+                                borderRadius: '8px',
+                                border: '1px solid #e10600',
+                                backgroundColor: 'transparent',
+                                color: '#e10600',
+                                fontSize: '1rem',
+                                fontWeight: 'bold',
+                                cursor: 'pointer',
+                                transition: 'all 0.2s'
+                            }}
+                            onMouseOver={(e) => {
+                                e.target.style.backgroundColor = '#e10600'
+                                e.target.style.color = 'white'
+                            }}
+                            onMouseOut={(e) => {
+                                e.target.style.backgroundColor = 'transparent'
+                                e.target.style.color = '#e10600'
+                            }}
+                        >
+                            Reset Filtri
+                        </button>
+                    </div>
+
+                    {/* Contatore risultati */}
+                    <p style={{
+                        color: '#9ca3af',
+                        fontSize: '0.875rem',
+                        marginTop: '16px',
+                        textAlign: 'center'
+                    }}>
+                        Mostrate {filteredCars.length} di {cars.length} auto
+                    </p>
+                </div>
             
                  {/* Grid */}
                 <div style={{
@@ -151,7 +294,7 @@ const CarList = () => {
                     gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))',
                     gap: '32px'
                 }}>
-                    {cars.map((car) => (
+                    {filteredCars.map((car) => (
                         <div
                             key={car.id}
                             style={{
