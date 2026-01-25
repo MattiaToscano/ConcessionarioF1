@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 
 const Header = () => {
@@ -137,7 +138,7 @@ const Header = () => {
 
                     {/* Menu Items */}
                     <nav style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-                        <a href="/" style={{
+                        <Link to="/" onClick={() => setIsMenuOpen(false)} style={{
                             display: 'block',
                             fontSize: '1.125rem',
                             fontWeight: '500',
@@ -152,7 +153,23 @@ const Header = () => {
                             onMouseOver={(e) => e.target.style.color = '#e10600'}
                             onMouseOut={(e) => e.target.style.color = 'white'}>
                             HOME
-                        </a>
+                        </Link>
+                        <Link to="/cars" onClick={() => setIsMenuOpen(false)} style={{
+                            display: 'block',
+                            fontSize: '1.125rem',
+                            fontWeight: '500',
+                            letterSpacing: '0.1em',
+                            color: 'white',
+                            textDecoration: 'none',
+                            paddingTop: '8px',
+                            paddingBottom: '8px',
+                            borderBottom: '1px solid #374151',
+                            transition: 'color 0.2s'
+                        }}
+                            onMouseOver={(e) => e.target.style.color = '#e10600'}
+                            onMouseOut={(e) => e.target.style.color = 'white'}>
+                            TUTTE LE AUTO F1
+                        </Link>
                         <a href="/auto" style={{
                             display: 'block',
                             fontSize: '1.125rem',
