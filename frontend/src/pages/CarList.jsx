@@ -78,18 +78,103 @@ const CarList = () => {
     }
 
     // Se sto ancora caricando, mostro solo il messaggio di attesa
+    // Se sto ancora caricando, mostro skeleton cards
     if (loading) {
         return (
             <div style={{
                 minHeight: '100vh',
                 backgroundColor: '#111827',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                color: 'white',
-                fontSize: '1.5rem'
+                paddingTop: '80px',
+                paddingBottom: '64px'
             }}>
-                Caricamento auto...
+                <div style={{
+                    maxWidth: '1400px',
+                    margin: '0 auto',
+                    paddingLeft: '16px',
+                    paddingRight: '16px'
+                }}>
+                    <div style={{
+                        textAlign: 'center',
+                        marginBottom: '48px'
+                    }}>
+                        <h1 style={{
+                            color: 'white',
+                            fontSize: '3rem',
+                            fontWeight: 'bold'
+                        }}>
+                            Caricamento...
+                        </h1>
+                    </div>
+
+                    {/* Skeleton Cards */}
+                    <div style={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))',
+                        gap: '32px'
+                    }}>
+                        {[1, 2, 3, 4, 5, 6].map((i) => (
+                            <div
+                                key={i}
+                                style={{
+                                    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                                    borderRadius: '16px',
+                                    overflow: 'hidden',
+                                    border: '1px solid rgba(255, 255, 255, 0.1)',
+                                    animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+                                }}
+                            >
+                                {/* Skeleton Image */}
+                                <div style={{
+                                    height: '200px',
+                                    backgroundColor: 'rgba(255, 255, 255, 0.1)'
+                                }} />
+                                
+                                {/* Skeleton Content */}
+                                <div style={{ padding: '24px' }}>
+                                    <div style={{
+                                        height: '24px',
+                                        backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                                        borderRadius: '4px',
+                                        marginBottom: '12px',
+                                        width: '80%'
+                                    }} />
+                                    <div style={{
+                                        height: '16px',
+                                        backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                                        borderRadius: '4px',
+                                        marginBottom: '8px',
+                                        width: '60%'
+                                    }} />
+                                    <div style={{
+                                        height: '16px',
+                                        backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                                        borderRadius: '4px',
+                                        marginBottom: '16px',
+                                        width: '40%'
+                                    }} />
+                                    <div style={{
+                                        height: '32px',
+                                        backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                                        borderRadius: '8px',
+                                        width: '100%'
+                                    }} />
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Aggiungi la keyframe animation nel tag style */}
+                <style>{`
+                    @keyframes pulse {
+                        0%, 100% {
+                            opacity: 1;
+                        }
+                        50% {
+                            opacity: 0.5;
+                        }
+                    }
+                `}</style>
             </div>
         )
     }
